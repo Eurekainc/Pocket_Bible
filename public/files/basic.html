@@ -1,0 +1,26 @@
+
+
+<div id="main">
+	<div id="area"></div>
+	<div id="prev_bottom" onclick="EbookPrevPage();" class="arrow bottom"> <span class="icon icon-left"></span></div>
+	<div id="index_bottom" onclick="EbookIndex();" class= "index bottom">  <span class="icon icon-list"></span></div>
+	<div id="next_bottom" onclick="EbookNextPage()" class="arrow bottom">  <span class="icon icon-right"></span></div>
+</div>
+
+<script>
+   var Book = ePub("files/newcreation/");
+	 Book.renderTo("area");
+	 if (localStorage.ebookLocation && !localStorage.ebookIndex){
+		 var chapter = localStorage.ebookLocation;
+		 Book.on('book:ready', function() { Book.displayChapter(chapter); });
+		 // https://github.com/futurepress/epub.js/issues/545
+	}
+	if (localStorage.ebookChapter){
+		var chapter = 'newcreation/' + localStorage.ebookChapter;
+		localStorage.removeItem('ebookChapter');
+		Book.on('book:ready', function() {
+			Book.goto(chapter);
+		});
+	}
+
+</script>
